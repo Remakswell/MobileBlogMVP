@@ -1,5 +1,6 @@
 package com.example.mobileblogmvp.Login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     private EditText password;
     private Button getStarted;
     private LoginPresenter presenter;
+    private Context mContext = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +74,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         password.setError(getString(R.string.password_error));
     }
 
+
     @Override
-    public void navigateToHome() {
-        startActivity(new Intent(this, MainActivity.class));
-        finish();
+    public Context getContext() {
+        return mContext;
     }
 
     private void validateCredentials(){
