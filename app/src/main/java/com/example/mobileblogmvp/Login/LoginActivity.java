@@ -38,14 +38,10 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 LoginActivity.this.validateCredentials();
-
             }
         });
-
         presenter = new LoginPresenter(this, new LoginInteractor());
-
     }
 
     @Override
@@ -74,14 +70,12 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         password.setError(getString(R.string.password_error));
     }
 
-
     @Override
     public Context getContext() {
         return mContext;
     }
 
     private void validateCredentials(){
-
         presenter.validateCredentials(username.getText().toString(), password.getText().toString());
         Log.d("test", "ActivityLoginOK");
     }

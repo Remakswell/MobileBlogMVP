@@ -1,5 +1,7 @@
 package com.example.mobileblogmvp.Login;
 
+import android.content.Context;
+
 public interface LoginView {
 
     void showProgress();
@@ -10,6 +12,6 @@ public interface LoginView {
 
     void validatePassword();
 
-    void navigateToHome();
+    Context getContext();
 
 }

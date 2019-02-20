@@ -7,6 +7,8 @@ import android.util.Patterns;
 
 import java.util.regex.Pattern;
 
+import retrofit2.Retrofit;
+
 public class LoginInteractor {
 
     private static final Pattern PASSWORD_PATTERN =
@@ -24,6 +26,8 @@ public class LoginInteractor {
         void validateUsername();
 
         void validatePassword();
+
+        Retrofit getApiClient();
 
         void onSuccess();
     }
