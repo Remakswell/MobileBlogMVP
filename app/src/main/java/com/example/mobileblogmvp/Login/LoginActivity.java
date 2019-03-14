@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.mobileblogmvp.Main.MainActivity;
 import com.example.mobileblogmvp.R;
@@ -17,8 +20,9 @@ import com.example.mobileblogmvp.R;
 public class LoginActivity extends AppCompatActivity implements LoginView{
 
     private ProgressBar progressBar;
-    private EditText username;
-    private EditText password;
+    private TextInputLayout username;
+    private TextInputLayout password;
+    private TextView textView;
     private Button getStarted;
     private LoginPresenter presenter;
     private Context mContext = this;
@@ -30,10 +34,15 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         setContentView(R.layout.activity_login);
 
         progressBar = findViewById(R.id.progress);
-        username = findViewById(R.id.tesxt_input_email);
-        password = findViewById(R.id.tesxt_input_password);
+        username = findViewById(R.id.text_input_email);
+        password = findViewById(R.id.text_input_password);
+        textView = findViewById(R.id.tViewForgotPassword);
         getStarted = findViewById(R.id.buttonGetStarted);
 
+        //Underline text
+        SpannableString content = new SpannableString("Forgot your password?");
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        textView.setText(content);
 
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         presenter.onDestroy();
         super.onDestroy();
     }
-
+    
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
@@ -76,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     }
 
     private void validateCredentials(){
-        presenter.validateCredentials(username.getText().toString(), password.getText().toString());
+        presenter.validateCredentials(username.getEditText().getText().toString(), password.getEditText().getText().toString());
         Log.d("test", "ActivityLoginOK");
     }
 }
