@@ -1,5 +1,7 @@
 package com.example.mobileblogmvp;
 
+import android.database.Observable;
+
 import com.example.mobileblogmvp.Models.AuthorizationResponse;
 import com.example.mobileblogmvp.Models.ProjectsResponse;
 
@@ -16,8 +18,7 @@ public interface ApiInterface {
 
     @GET("/api/v1/projects/my/teams")
     Call<List<ProjectsResponse>> getProjects(@Header("Accept-Language") String headerLanguage,
-                                             @Header("Authorization") String headerToken);
-    //запрос на авторизацию пользователя
+                                                   @Header("Authorization") String headerToken);
     @POST("/api/v1/security/auth/email")
     Call<AuthorizationResponse> authorizationRequest(@Header ("Accept-Language") String headerLanguage,
                                                      @Header("Authorization") String headerToken,
