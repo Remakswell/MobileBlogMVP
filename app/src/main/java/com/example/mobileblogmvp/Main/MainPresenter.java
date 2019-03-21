@@ -1,17 +1,28 @@
 package com.example.mobileblogmvp.Main;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainPresenter implements FindItemsInteractor.OnFinishedListener {
 
+public class MainPresenter {
 
     private MainView mainView;
     private FindItemsInteractor findItemsInteractor;
 
     public MainPresenter(MainView mainView, FindItemsInteractor findItemsInteractor) {
-        this.mainView = mainView;
         this.findItemsInteractor = findItemsInteractor;
+        this.mainView = mainView;
     }
 
+
+    void onDestroy() {
+        mainView = null;
+    }
+
+    void onResume() {
+        if (mainView != null) {
+            mainView.showProgress();
+        }
+        findItemsInteractor.createProjectList();
+    }
 }
+
+

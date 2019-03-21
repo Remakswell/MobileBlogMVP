@@ -6,7 +6,6 @@ import com.example.mobileblogmvp.ApiClient;
 import com.example.mobileblogmvp.ApiInterface;
 import com.example.mobileblogmvp.Models.ProjectsResponse;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,6 +21,7 @@ public class FindItemsInteractor {
     }
 
     public void createProjectList() {
+
         Call<List<ProjectsResponse>> getProjectsCall = apiInterface.
                 getProjects("en", "Bearer " + mainView.getToken());
 
