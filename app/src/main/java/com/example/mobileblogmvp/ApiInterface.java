@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 public interface ApiInterface {
 
     @GET("/api/v1/projects/my/teams")
-    Call<List<ProjectsResponse>> getProjects( @Header("Accept-Language") String headerLanguage,
+    Call<List<ProjectsResponse>> getProjects(@Header("Accept-Language") String headerLanguage,
                                               @Header("Authorization") String headerToken);
 
 

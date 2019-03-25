@@ -20,7 +20,6 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     private LoginView loginView;
     private LoginInteractor loginInteractor;
     private String token;
-
     public LoginPresenter(LoginView loginView, LoginInteractor loginInteractor) {
         this.loginView = loginView;
         this.loginInteractor = loginInteractor;
@@ -58,7 +57,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     public void onSuccess() {
 
         HashMap<String, Object> body = new HashMap<>();
-        body.put("email", "fed.lviv@gmail.com");
+        body.put("email", "owner@gmail.com");
         body.put("password", "1234567a");
 
         //create login request
