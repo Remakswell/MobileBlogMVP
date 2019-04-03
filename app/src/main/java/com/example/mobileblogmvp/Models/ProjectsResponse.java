@@ -64,5 +64,4 @@ public class ProjectsResponse {
         this.projects = projects;
     }
 
-
 }

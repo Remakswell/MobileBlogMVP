@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setItems(List<ProjectsResponse> projects) {
-        adapter = new MainAdapter(projects.get(0).projects);
+        adapter = new MainAdapter(projects.get(0).projects, this);
         recyclerView.setAdapter(adapter);
     }
 

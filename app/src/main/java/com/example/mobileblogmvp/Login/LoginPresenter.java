@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.util.Log;
 
 
+import com.example.mobileblogmvp.ApiClient;
+import com.example.mobileblogmvp.ApiInterface;
 import com.example.mobileblogmvp.Main.MainActivity;
 import com.example.mobileblogmvp.Models.AuthorizationResponse;
 
 import java.util.HashMap;
 
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -20,6 +24,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     private LoginView loginView;
     private LoginInteractor loginInteractor;
     private String token;
+
     public LoginPresenter(LoginView loginView, LoginInteractor loginInteractor) {
         this.loginView = loginView;
         this.loginInteractor = loginInteractor;
@@ -60,12 +65,17 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         body.put("email", "owner@gmail.com");
         body.put("password", "1234567a");
 
+
+//        apiInterface.authorizationRequest("en","Bearer", body).subscribeOn(Schedulers.io()).
+//                observeOn(AndroidSchedulers.mainThread()).subscribe();
+
+
         //create login request
         final Call<AuthorizationResponse> authorizationCall = loginInteractor.apiInterface.
                 authorizationRequest("en","Bearer", body);
 
 
-        //launch login request
+//        launch login request
         authorizationCall.enqueue(new Callback<AuthorizationResponse>() {
 
             //triggered by successful request
