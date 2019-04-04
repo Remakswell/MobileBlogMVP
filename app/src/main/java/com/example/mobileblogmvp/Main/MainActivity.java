@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    private RecyclerView.Adapter adapter;
+    private MainAdapter adapter;
     private ProgressBar progressBar;
     private MainPresenter presenter;
     private String token;
@@ -30,10 +30,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        adapter = new MainAdapter(this);
         recyclerView = findViewById(R.id.list);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
         progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this, new FindItemsInteractor(this));
 
@@ -68,8 +71,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setItems(List<ProjectsResponse> projects) {
-        adapter = new MainAdapter(projects.get(0).projects, this);
-        recyclerView.setAdapter(adapter);
+
+        adapter.setItems(projects.get(0).projects);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

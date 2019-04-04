@@ -2,21 +2,12 @@ package com.example.mobileblogmvp.Login;
 
 import android.content.Intent;
 import android.util.Log;
-
-
-import com.example.mobileblogmvp.ApiClient;
-import com.example.mobileblogmvp.ApiInterface;
 import com.example.mobileblogmvp.Main.MainActivity;
 import com.example.mobileblogmvp.Models.AuthorizationResponse;
-
 import java.util.HashMap;
-
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
@@ -41,7 +32,6 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         loginInteractor.login(username, password, this);
     }
 
-
     @Override
     public void validateUsername() {
         if (loginView != null) {
@@ -65,39 +55,34 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
         body.put("email", "owner@gmail.com");
         body.put("password", "1234567a");
 
+        loginInteractor.apiInterface.authorizationRequest("en","Bearer", body)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<AuthorizationResponse>() {
+                    @Override
+                    public void onNext(AuthorizationResponse authorizationResponse) {
 
-//        apiInterface.authorizationRequest("en","Bearer", body).subscribeOn(Schedulers.io()).
-//                observeOn(AndroidSchedulers.mainThread()).subscribe();
+                        token = authorizationResponse.token;
 
+                        if(token != null){
+                            Intent intent = new Intent(loginView.getContext(), MainActivity.class);
+                            intent.putExtra("token", token);
+                            loginView.getContext().startActivity(intent);
+                        } else{
+                            Log.d("test","Error token");
+                        }
 
-        //create login request
-        final Call<AuthorizationResponse> authorizationCall = loginInteractor.apiInterface.
-                authorizationRequest("en","Bearer", body);
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
 
-//        launch login request
-        authorizationCall.enqueue(new Callback<AuthorizationResponse>() {
+                    }
 
-            //triggered by successful request
-            @Override
-            public void onResponse(Call<AuthorizationResponse> call, Response<AuthorizationResponse> response) {
+                    @Override
+                    public void onComplete() {
 
-                token = response.body().token;
-                Log.d("test", "Token Login2 - " + token);
-
-                if(token != null){
-                    Intent intent = new Intent(loginView.getContext(), MainActivity.class);
-                    intent.putExtra("token", token);
-                    loginView.getContext().startActivity(intent);
-                } else{
-                    Log.d("test","Error token");
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AuthorizationResponse> call, Throwable t) {
-                Log.d("test", "Error - " + t.getMessage());
-            }
-        });
+                    }
+                });
     }
 }

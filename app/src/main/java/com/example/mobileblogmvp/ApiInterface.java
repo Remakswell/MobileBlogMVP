@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -21,7 +20,7 @@ public interface ApiInterface {
 
 
     @POST("/api/v1/security/auth/email")
-    Call<AuthorizationResponse> authorizationRequest(@Header ("Accept-Language") String headerLanguage,
+    Observable<AuthorizationResponse> authorizationRequest(@Header ("Accept-Language") String headerLanguage,
                                                      @Header("Authorization") String headerToken,
                                                      @Body HashMap<String,Object> body);
 }

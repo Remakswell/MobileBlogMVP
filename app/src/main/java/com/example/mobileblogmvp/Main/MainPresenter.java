@@ -12,7 +12,6 @@ public class MainPresenter {
         this.mainView = mainView;
     }
 
-
     void onDestroy() {
         mainView = null;
     }

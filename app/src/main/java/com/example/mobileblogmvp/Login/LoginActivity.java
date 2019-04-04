@@ -1,20 +1,15 @@
 package com.example.mobileblogmvp.Login;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.example.mobileblogmvp.Main.MainActivity;
 import com.example.mobileblogmvp.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
@@ -39,6 +34,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         textView = findViewById(R.id.tViewForgotPassword);
         getStarted = findViewById(R.id.buttonGetStarted);
 
+        presenter = new LoginPresenter(this, new LoginInteractor());
+
         //Underline text
         SpannableString content = new SpannableString("Forgot your password?");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -50,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
                 LoginActivity.this.validateCredentials();
             }
         });
-        presenter = new LoginPresenter(this, new LoginInteractor());
     }
 
     @Override
@@ -85,7 +81,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     }
 
     private void validateCredentials(){
-        presenter.validateCredentials(username.getEditText().getText().toString(), password.getEditText().getText().toString());
-        Log.d("test", "ActivityLoginOK");
+        presenter.validateCredentials(username.getEditText().getText().toString(),
+                password.getEditText().getText().toString());
     }
 }

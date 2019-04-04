@@ -1,12 +1,9 @@
 package com.example.mobileblogmvp.Login;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
-
 import com.example.mobileblogmvp.ApiClient;
 import com.example.mobileblogmvp.ApiInterface;
-
 import java.util.regex.Pattern;
 
 
