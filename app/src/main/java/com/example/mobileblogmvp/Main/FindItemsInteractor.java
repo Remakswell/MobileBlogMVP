@@ -1,7 +1,6 @@
 package com.example.mobileblogmvp.Main;
 import com.example.mobileblogmvp.ApiClient;
 import com.example.mobileblogmvp.ApiInterface;
-import com.example.mobileblogmvp.Models.AuthorizationResponse;
 import com.example.mobileblogmvp.Models.ProjectsResponse;
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -13,7 +12,6 @@ public class FindItemsInteractor {
 
     private MainView mainView;
     private final ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-    private AuthorizationResponse authorizationResponse = new AuthorizationResponse();
 
     public FindItemsInteractor(MainView mainView){
         this.mainView = mainView;
