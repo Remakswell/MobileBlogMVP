@@ -30,6 +30,7 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
             loginView.showProgress();
         }
         loginInteractor.login(username, password, this);
+
     }
 
     @Override
@@ -52,10 +53,10 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
     public void onSuccess() {
 
         HashMap<String, Object> body = new HashMap<>();
-        body.put("email", "owner@gmail.com");
-        body.put("password", "1234567a");
+        body.put("email", loginView.getName());         //owner@gmail.com
+        body.put("password", loginView.getPassword());  //1234567a
 
-        loginInteractor.apiInterface.authorizationRequest("en","Bearer", body)
+        loginInteractor.apiInterface.authorizationRequest("en","Bearer", body )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableObserver<AuthorizationResponse>() {
@@ -71,14 +72,11 @@ public class LoginPresenter implements LoginInteractor.OnLoginFinishedListener {
                         } else{
                             Log.d("test","Error token");
                         }
-
                     }
-
                     @Override
                     public void onError(Throwable e) {
 
                     }
-
                     @Override
                     public void onComplete() {
 

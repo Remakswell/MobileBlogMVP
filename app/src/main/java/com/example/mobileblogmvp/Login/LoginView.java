@@ -14,4 +14,8 @@ public interface LoginView {
 
     Context getContext();
 
+    String getName();
+
+    String getPassword();
+
 }

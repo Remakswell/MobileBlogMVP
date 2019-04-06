@@ -8,28 +8,26 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.example.mobileblogmvp.Models.ProjectsResponse;
 import com.example.mobileblogmvp.R;
-
-
 import java.util.List;
+import butterknife.BindView;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
-    private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private MainAdapter adapter;
-    private ProgressBar progressBar;
     private MainPresenter presenter;
     private String token;
+    @BindView(R.id.list) RecyclerView recyclerView;
+    @BindView(R.id.progress) ProgressBar progressBar;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         adapter = new MainAdapter(this);
         recyclerView = findViewById(R.id.list);
@@ -42,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
         Intent intent = getIntent();
         token = intent.getStringExtra("token");
-
     }
 
     @Override

@@ -11,28 +11,25 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.example.mobileblogmvp.R;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
 
-    private ProgressBar progressBar;
-    private TextInputLayout username;
-    private TextInputLayout password;
-    private TextView textView;
-    private Button getStarted;
     private LoginPresenter presenter;
     private Context mContext = this;
-
+    @BindView(R.id.progress) ProgressBar progressBar;
+    @BindView(R.id.text_input_email) TextInputLayout username;
+    @BindView(R.id.text_input_password) TextInputLayout password;
+    @BindView(R.id.tViewForgotPassword) TextView textView;
+    @BindView(R.id.buttonGetStarted) Button getStarted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        progressBar = findViewById(R.id.progress);
-        username = findViewById(R.id.text_input_email);
-        password = findViewById(R.id.text_input_password);
-        textView = findViewById(R.id.tViewForgotPassword);
-        getStarted = findViewById(R.id.buttonGetStarted);
+        ButterKnife.bind(this);
 
         presenter = new LoginPresenter(this, new LoginInteractor());
 
@@ -40,13 +37,11 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         SpannableString content = new SpannableString("Forgot your password?");
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         textView.setText(content);
+    }
 
-        getStarted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginActivity.this.validateCredentials();
-            }
-        });
+    @OnClick(R.id.buttonGetStarted)
+    public void getStartedButtonClick(){
+        LoginActivity.this.validateCredentials();
     }
 
     @Override
@@ -80,8 +75,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
         return mContext;
     }
 
+    @Override
+    public String getName(){
+        return username.getEditText().getText().toString();
+    }
+
+    @Override
+    public String getPassword(){
+        return password.getEditText().getText().toString();
+    }
+
     private void validateCredentials(){
-        presenter.validateCredentials(username.getEditText().getText().toString(),
-                password.getEditText().getText().toString());
+        presenter.validateCredentials(getName(), getPassword());
     }
 }
