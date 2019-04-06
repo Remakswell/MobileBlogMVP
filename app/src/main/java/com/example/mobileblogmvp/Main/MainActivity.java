@@ -12,6 +12,7 @@ import com.example.mobileblogmvp.Models.ProjectsResponse;
 import com.example.mobileblogmvp.R;
 import java.util.List;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
@@ -23,18 +24,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.progress) ProgressBar progressBar;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         adapter = new MainAdapter(this);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
-        progressBar = findViewById(R.id.progress);
         presenter = new MainPresenter(this, new FindItemsInteractor(this));
 
         Intent intent = getIntent();
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void setItems(List<ProjectsResponse> projects) {
-
         adapter.setItems(projects.get(0).projects);
         adapter.notifyDataSetChanged();
     }
